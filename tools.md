@@ -5,4 +5,12 @@ sh android-studio/bin/studio.sh
 
 **Android Debug Bridge - ADB**  
 apt-get install adb  
+adb install .\myapp.apk  
+adb root  
+adb shell  
+pm list packages | grep myapp  //get app identifier com.htb.myapp    
+ls -l /data/data | grep com.hackthebox.myapp  //uid is the user id of app run as user  
+
+
+
 
