@@ -47,6 +47,9 @@ frida -U -l snippet.js -f com.hackthebox.chatapp
 replace app cert with burp cert, make device trust burp cert, find hash value returned by function, use frida to return hash of burp cert  
 so this requires reading the code with jadx and writing snipped code to handle inject app with Frida  
 
+There are other methods - cert pinning is very important question to ask during scoping  
+
+
 
 
 
