@@ -5,6 +5,7 @@ sh android-studio/bin/studio.sh
 
 PS C:\Users\cs410\AppData\Local\Android\Sdk\platform-tools> ..\emulator\emulator.exe -list-avds  //to list installed devices on windows  
 PS C:\Users\cs410\AppData\Local\Android\Sdk\platform-tools> ..\emulator\emulator.exe -avd 'Pixel_9a'  //start the device emulator without starting studio  
+~/Android/sdk/emulator/emulator -avd Pixel_3a_API_34 -netdelay none -netspeed full -dns-server 8.8.8.8 -writable-system  //start emulator 
 
 ## Android Debug Bridge - ADB - shell to interact with emulated/physical device  
 apt-get install adb  //lin  Below windows its already part of studio SDK install  
