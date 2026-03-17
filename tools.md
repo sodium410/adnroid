@@ -7,6 +7,14 @@ PS C:\Users\cs410\AppData\Local\Android\Sdk\platform-tools> ..\emulator\emulator
 PS C:\Users\cs410\AppData\Local\Android\Sdk\platform-tools> ..\emulator\emulator.exe -avd 'Pixel_9a'  //start the device emulator without starting studio  
 ~/Android/sdk/emulator/emulator -avd Pixel_3a_API_34 -netdelay none -netspeed full -dns-server 8.8.8.8 -writable-system  //start emulator 
 
+**AVD alternatives**  
+BlissOS - can be installed as VMware guest OS - root by default but non guest recommended   
+PrimeOS -- similar to BlissOS  
+Waydroid - linux only 
+genymotion desktop -- free with limited features  
+With ads -- bluestacks and Memu 
+
+
 ## Android Debug Bridge - ADB - shell to interact with emulated/physical device  
 apt-get install adb  //lin  Below windows its already part of studio SDK install  
 C:\Users\<username>\AppData\Local\Android\Sdk\platform-tools  -- this didnt work - so install it using scoop  
@@ -23,6 +31,7 @@ pm list packages | grep myapp  //get app identifier com.htb.myapp
 If package name is known get the path --  adb shell pm path com.example.myapp  
 adb pull /data/app/com.example.myapp-1/base.apk .   //download the apk installed  
 ls -l /data/data | grep com.hackthebox.myapp  //uid is the user id of app run as user  
+dumpsys activity activities | grep VisibleActivityProcess  //identify apps with gui on root shell  
 
 ## APKTool  -- disassembler, decoder and reassembler  
 https://apktool.org/docs/install  
