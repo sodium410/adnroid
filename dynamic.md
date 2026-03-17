@@ -21,6 +21,34 @@ root:/# ls -l /sdcard/Android/data/com.hackthebox.mynotebook/files/MyPersonalNot
 These .txt files contain the saved notes that users cannot see directly from the app without knowing the pin.  
 This highlights the importance of securing external storage, as unprotected files can be accessed easily on rooted devices.  
 
+in short -- does it store any sensitive info in local db, any access control attributes in shared preferences,  
+any files on external storage which are pin protected by app but directly accessible on external storage without pin, bypassing protections  
+
+## Exported Activities  
+By default, activities are only accessible within their app.  
+However, when the attribute exported of an activity is set to true, then it can be invoked by other applications or components.  
+Exported activities that lack adequate security can often become the target of malicious intents, eventually leading to unauthorized access.  
+
+**Exploiting Insecure Exported Activities**  
+the main activity has a pin check to access notes which are encrypted on external storage  
+however the sub activity viewnotes is exported and doesnt check pin - just opens given filename decrypting contents  
+manifest has - <activity android:name="com.hackthebox.myapp.NoteContentActivity" android:exported="true"/>  
+adb shell am start -n com.hackthebox.myapp/.NoteContentActivity --es filename "Note_347233492.txt"  
+check exported activities in manifest and if they can be exploited in some way to bypass security checks  
+
+## Insecure Logging  
+sensitive information is unintentionally recorded through the application’s logs  
+his may include user credentials, payment details, or other personal data handled by the app  
+three main log types..  
+main	Stores most application logs  system	Stores messages originating from the Android OS crash	Stores crash logs  
+adb logcat '*:D' | grep 'Debug note: '   start the logcat and start the activity that is logging and exported  
+adb shell am start -n com.hackthebox.myapp/.NoteContentActivity --es filename "Note_-2074205319.txt" --es userPin "00000000"  
+this case is vuln because the app is logging decrypted contents before pin check thus revealing decrypted data without pin  
+jadx to check the code and look for log.d calls  
+
+## Exploiting WebViews  
+WebView is a component that allows Android apps to display web content as part of the application's layout. example gyftr app  
+Injecting Javascript Code to Exploit WebViews
 
 
 ## Intercepting HTTP/S Requests  
