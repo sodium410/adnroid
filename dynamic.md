@@ -1,3 +1,28 @@
+Dynamic Analysis is a method for evaluating the security and performance of an Android application by examining its behavior during runtime.  
+
+## Enumerating Local Storage  
+**Internal storage** refers to the private area allocated to each application  
+If not rooted, This area is inaccessible to other apps and users, ensuring high security and privacy  
+**External storage** refers to storage spaces that are not exclusively tied to the app, like SD cards or shared internal partitions.  
+
+**Database** -- Android applications use databases to store structured data.  
+root:/# ls -l /data/data/com.hackthebox.mypassmanager  //shows db in use  
+sqlite3 /data/data/com.hackthebox.mypassmanager/databases/SecureVault.db  
+sqlite> .tables  
+sqlite> select * from credentials;  
+
+**Shared Preferences** is another common storage method used for storing key-value pairs in an xml file  
+root:/# ls -l /data/data/com.hackthebox.mypassmanager2/  //lists the shared_prefs dir  
+root:/# cat /data/data/com.hackthebox.mypassmanager2/shared_prefs/app_properties.xml  //pdate the value of pin use fro true to false and restart app  
+The passcode authentication step has been successfully bypassed.  
+
+**App-Specific External Storage** --  to save larger datasets or share data between applications.  
+root:/# ls -l /sdcard/Android/data/com.hackthebox.mynotebook/files/MyPersonalNotes/  //notes stored on sdcard  
+These .txt files contain the saved notes that users cannot see directly from the app without knowing the pin.  
+This highlights the importance of securing external storage, as unprotected files can be accessed easily on rooted devices.  
+
+
+
 ## Intercepting HTTP/S Requests  
 to uncover how an app nteracts with remote servers and external resources.  
 and run API/Web attacks  
